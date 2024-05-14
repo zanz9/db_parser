@@ -97,6 +97,12 @@ class DBClient {
         await this.exec(query)
     }
 
+    async changeNameTable(database, oldName, newName) {
+        await this.changeDatabase(database)
+        const query = `ALTER TABLE ${oldName} RENAME TO ${newName};`
+        await this.exec(query)
+    }
+
     async getAllColumns(database, table) {
         await this.changeDatabase(database)
         const query = `
@@ -113,7 +119,16 @@ class DBClient {
             LEFT JOIN information_schema.table_constraints tc ON kcu.constraint_schema = tc.constraint_schema 
             AND kcu.constraint_name = tc.constraint_name WHERE c.table_schema = 'public' AND c.table_name = '${table}';`
         const {rows} = await this.exec(query)
-        return rows
+        return rows.map((row) => {
+            return {
+                columnName: row['column_name'],
+                columnDefault: row['column_default'],
+                isNullable: row['is_nullable'] !== 'NO',
+                dataType: row['data_type'],
+                constraintName: row['constraint_name'],
+                constraintType: row['constraint_type']
+            }
+        })
     }
 }
 

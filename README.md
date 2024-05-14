@@ -14,7 +14,7 @@
 - [x]  Get All By Database
 - [x]  Create
 - [ ]  Create with Initial Values
-- [ ]  Update
+- [x]  Update
 - [x]  Drop
 
 #### Column

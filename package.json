@@ -1,0 +1,16 @@
+{
+  "name": "db_parser",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "zAnz",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "pg": "^8.11.5"
+  }
+}
